@@ -1,0 +1,47 @@
+<mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+<!-- Start Main container -->
+<div id="main_container">
+    <form #signin="ngForm" (ngSubmit)="submitForm()" id="wrapped">
+        <div id="login-main">
+            <h3>Welcome Back.</h3>
+            <p>Please sign in below to get Access.</p>
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="data-list">
+                        <li>
+                            <input type="text" [(ngModel)]="signIn.email" name="username" class="required form-control" placeholder="User Name" [ngModelOptions]="{standalone: true}">
+                        </li>
+                        <li>
+                            <input type="password" [(ngModel)]="signIn.password" name="password" class="required form-control" placeholder="Password" [ngModelOptions]="{standalone: true}">
+                        </li>
+                    </ul>
+                    <div>
+                        <!-- <span class="float-left">
+                            <input type="checkbox" id="chkRemember">
+                            <label for="chkRemember">&nbsp; Remember me?</label>
+                        </span> -->
+
+                        <a class="float-right" [routerLink]="['/app/login/forgot-password']">Forgot Password?</a>
+                    </div>
+
+                </div>
+                <!-- end col-md-6 -->
+                <div class="col-md-12">
+                    <button type="submit" title="Sign In" (click)="submitForm()" tabindex="-1" [disabled]="loading || !signIn.email || !signIn.password" class="btn-block myButton">Sign In</button>
+                </div>
+
+            </div>
+            <!-- end row -->
+
+        </div>
+        <!-- end middle-wizard -->
+        <div id="login-end">
+            <h5>
+                Dont have account?
+                <a [routerLink]="['/app/login/sign-up']">Create an account!</a>
+            </h5>
+        </div>
+    </form>
+
+</div>
+<!-- end Main container -->

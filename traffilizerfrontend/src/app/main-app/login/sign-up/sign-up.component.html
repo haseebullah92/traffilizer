@@ -1,0 +1,30 @@
+<mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+<!-- Start Main container -->
+<div id="main_container">
+    <form #signup="ngForm" (ngSubmit)="submitForm()" id="wrapped">
+      <div id="login-main">
+        <h3>Get Started with a Free Account.</h3>
+        <p>Please sign up below.</p>
+          <div class="row">
+            <div class="col-md-12">
+              <ul class="data-list">
+                <li><input type="text" [(ngModel)]="signUp.email" name="email" class="required form-control" placeholder="Your Email" [ngModelOptions]="{standalone: true}"></li>
+                <li><input type="password" [(ngModel)]="signUp.password" name="password" class="required form-control" placeholder="Password" [ngModelOptions]="{standalone: true}"></li>
+                <li><input type="password" [(ngModel)]="signUp.confirmPassword" name="confirm-password" class="required form-control" placeholder="Confirm Password" [ngModelOptions]="{standalone: true}"></li>
+              </ul>
+            </div><!-- end col-md-6 -->
+            <div class="col-md-12">
+              <button type="submit" title="Sign Up" class="btn-block myButton" (click)="submitForm()" [disabled]="loading || !signUp.email || !signUp.password || !signUp.confirmPassword || signUp.password != signUp.confirmPassword">Create My Account</button>
+            </div>
+            
+          </div><!-- end row --> 
+              
+      </div><!-- end middle-wizard -->
+      <div id="login-end">
+        <h5>
+            Already have an account?  <a [routerLink]="['/app/login/sign-in']">Login to your Account!</a>
+        </h5>      
+      </div>
+    </form>
+      
+  </div><!-- end Main container -->

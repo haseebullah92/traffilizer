@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f03b54eed75441ab8d56b862be21dc6d" Name="Diagram1" ZoomLevel="71">
+        <EntityTypeShape EntityType="TraffilizerModel.AspNetRole" Width="1.5" PointX="0.75" PointY="6.5" />
+        <EntityTypeShape EntityType="TraffilizerModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="12.75" />
+        <EntityTypeShape EntityType="TraffilizerModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="10.25" />
+        <EntityTypeShape EntityType="TraffilizerModel.AspNetUser" Width="1.5" PointX="3" PointY="4.75" />
+        <EntityTypeShape EntityType="TraffilizerModel.URLVisit" Width="1.5" PointX="7.5" PointY="5.25" />
+        <AssociationConnector Association="TraffilizerModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="TraffilizerModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="TraffilizerModel.FK_URLVisits_AspNetUsers" />
+        <AssociationConnector Association="TraffilizerModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="TraffilizerModel.URL" Width="1.5" PointX="5.25" PointY="5.75" />
+        <AssociationConnector Association="TraffilizerModel.FK_URLs_AspNetUsers" />
+        <AssociationConnector Association="TraffilizerModel.FK_URLVisits_URLs" />
+        <EntityTypeShape EntityType="TraffilizerModel.ReportURL" Width="1.5" PointX="7.5" PointY="8.875" />
+        <AssociationConnector Association="TraffilizerModel.FK_ReportURL_AspNetUsers" />
+        <AssociationConnector Association="TraffilizerModel.FK_ReportURL_URLs" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,123 @@
+<div id="wrapper">
+  <section class="top-area">
+    <header>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 col-9" id="logo">
+            <a [routerLink]="['/app/landing']">
+              Traffilizer
+            </a>
+          </div>
+          <div class="col-3 btn-responsive-menu-div">
+            <div class="btn-responsive-menu" (click)="showHideNavBar()">
+              <span class="bar"></span>
+              <span class="bar"></span>
+              <span class="bar"></span>
+            </div>
+          </div>
+
+          <nav class="col-md-8 col-12 top-sm-nav" *ngIf="mobileNavBar">
+            <ul class="top-sm-menu-ul">
+              <li class="top-menu-li" *ngIf="!userName" [routerLink]="['/app/faq']">
+                <a>
+                  <h5 class="top-sm-menu-h5">FAQs</h5>
+                </a>
+              </li>
+              <li class="top-menu-li" *ngIf="!userName" [routerLink]="['/app/login/sign-in']">
+                <a>
+                  <h5 class="top-sm-menu-h5">Sign In</h5>
+                </a>
+              </li>
+              <li class="top-menu-li" *ngIf="userName">
+                <a>
+                  <h5 class="top-sm-menu-h5"><i class="fa fa-user"></i> {{userName}}</h5>
+                </a>
+              </li>
+              <li class="top-menu-li" *ngIf="userName" [routerLink]="['/app/login/change-password']">
+                <a>
+                  <h5 class="top-sm-menu-h5"><i class="fa fa-fw fa-key"></i> Change Password</h5>
+                </a>
+              </li>
+              <li class="top-menu-li" *ngIf="userName && type == '1'" [routerLink]="['/app/admin']">
+                <a>
+                  <h5 class="top-sm-menu-h5"><i class="fa fa-fw fa-cogs"></i> Admin Panel</h5>
+                </a>
+              </li>
+              <li class="top-menu-li" *ngIf="userName" (click)="onLoggedout()">
+                <a>
+                  <h5 class="top-sm-menu-h5"><i class="fa fa-fw fa-power-off"></i> Log Out</h5>
+                </a>
+              </li>
+            </ul>
+          </nav>
+
+          <nav class="col-md-8 col-9 top-nav">
+            <ul class="top-menu-ul">
+              <li *ngIf="userName" class="show dropdown top-menu-li" ngbDropdown>
+
+                <div ngbDropdown class="d-inline-block" style="height: 100%;">
+                    <button class="btn btn-primary" id="ddUser" style="height: 98%;color: white; border-radius: 0;" ngbDropdownToggle><i class="fa fa-user"></i> {{userName}}</button>
+                    <div ngbDropdownMenu aria-labelledby="ddUser" style="background-color: #007bff;">
+                      <button class="dropdown-item customDD" [routerLink]="['/app/login/change-password']" style="cursor: pointer;color: white;"><i class="fa fa-fw fa-key"></i> Change Password</button>
+                      <button class="dropdown-item customDD" [routerLink]="['/app/admin']" *ngIf="type == '1'" style="cursor: pointer;color: white;"><i class="fa fa-fw fa-cogs"></i> Admin Panel</button>
+                      <button class="dropdown-item customDD" (click)="onLoggedout()" style="cursor: pointer;color: white;"><i class="fa fa-fw fa-power-off"></i> Log Out</button>
+                    </div>
+                </div>                
+              </li>
+              <li class="top-menu-li" *ngIf="!userName" [routerLink]="['/app/faq']">
+                <a>
+                  <h5 class="top-menu-h5">FAQs</h5>
+                </a>
+              </li>
+              <li class="top-menu-li" *ngIf="!userName" [routerLink]="['/app/login/sign-in']">
+                <a>
+                  <h5 class="top-menu-h5">Sign In</h5>
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <!-- End Nav -->
+
+        </div>
+        <!-- End row -->
+      </div>
+      <!-- End container -->
+    </header>
+    <!-- End header -->
+  </section>
+  <router-outlet></router-outlet>
+</div>
+<section id="footer_2">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <ul id="footer-nav">
+          <li>Copyright© Traffilizer </li>
+          <li>
+            <a href="#">Terms of Use</a>
+          </li>
+          <li>
+            <a [routerLink]="['/app/terms']">Privacy</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-6" style="text-align:center">
+        <ul class="social-bookmarks clearfix">
+          <li class="youtube">
+            <a href="https://www.youtube.com/channel/UC64JYVIv2yP5s42feH81V_Q" target="_blank">youtube</a>
+          </li>
+          <li class="facebook">
+            <a href="https://www.facebook.com/traffilizer" target="_blank">facebook</a>
+          </li>
+          <li class="linkedin">
+            <a href="#">linkedin</a>
+          </li>
+          <li class="twitter">
+            <a href="https://twitter.com/traffilizer" target="_blank">twitter</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<notifier-container></notifier-container>

@@ -1,0 +1,339 @@
+<mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+<div class="container" (on-init)="selectCallDuration(durationModal)">
+  <div class="homespacer"></div>
+  <div class="row">
+    <div class="col-md-10">
+      <h3 class="text-left">Dashboard</h3>
+    </div>
+    <div class="col-md-2">
+      <div class="text-right">
+        <select class="form-control round" [disabled]="loading" (change)="changeDuration()" [(ngModel)]="currentDuration" [ngModelOptions]="{standalone: true}">
+          <option value="1">10 Seconds</option>
+          <option value="2">30 Seconds</option>
+          <option value="3">60 Seconds</option>
+          <option value="4">120 Seconds</option>
+        </select>
+      </div>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="portlet">
+        <h4 class="portlet-title">
+          <u>Today's Stats</u>
+        </h4>
+        <div class="portlet-body">
+          <p>It's your daily Traffic Stat when ever you will Visit others Website your hits will be counted and you'll
+            get the same real time traffic on your website. It works on given and receive method.</p>
+          <br>
+          <div class="row">
+            <div class="col-md-6">
+              <a class="btn btn-block btn-lg traffic-stats" style="pointer-events: none;">
+                <span class="texto_grande">Traffic Received</span><br>
+                <b class="texto_text">{{ dailyStats.TrafficReceived }}</b>
+              </a>
+              <br><br>
+            </div>
+            <div class="col-md-6">
+              <a class="btn btn-block btn-lg traffic-stats" style="pointer-events: none;">
+                <span class="texto_grande">Traffic Given</span><br>
+                <b class="texto_text">{{ dailyStats.TrafficGiven }}</b>
+              </a>
+              <br><br>
+            </div>
+            <div class="divider" style="margin-top: 0px"></div>
+            <div class="col-md-12">
+              <div class="text-center">
+                <button title="Start Surf" type="button" (click)="earnTrafficModal(trafficModal)" class="myButton">Start
+                  Surf</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="portlet">
+        <h4 class="portlet-title">
+          <u>Recently Visited URLs</u>
+        </h4>
+        <div class="portlet-body">
+          <p>These are the recently visited links. If you moved from this page your visited history will be removed but
+            you can always check them on your browser history. If you get any link inappropriate report about it.</p>
+          <br>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="table-responsive">
+                <div id="table-1_wrapper" class="dataTables_wrapper form-inline" role="grid">
+                  <div class="row dt-rt">
+                    <div class="col-sm-6"></div>
+                    <div class="col-sm-6"></div>
+                  </div>
+                  <table class="table table-striped table-bordered dataTable" id="table-1">
+                    <thead>
+                      <tr role="row">
+                        <th class="sorting_asc" role="columnheader" style="width: 700px;">URLs</th>
+                        <th class="text-center linksTD2 sorting" role="columnheader" style="width: 150px;"></th>
+                      </tr>
+                    </thead>
+  
+                    <tbody id="linkList" role="alert">
+                      <tr *ngFor="let item of recentWebsites; let i = index" [class]="i % 2 == 0 ? 'odd' : 'even'">
+                        <td class="valign-middle" style="min-width:400px">
+                          <div class="divURL margin-top">
+                            <a [href]="item.URLAddress" target="_blank">{{ item.URLAddress }}</a>
+                          </div>
+                        </td>
+                        <td class="text-center valign-middle linksTD2 ">
+                          <button title="Report" (click)="reportUrl(reportURL, item.id)" class="btn-sm myButton">Report</button>
+                        </td>
+                      </tr>
+                      <tr *ngIf="!recentWebsites || recentWebsites.length == 0" class="odd">
+                        <td colspan="2">
+                          No record
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div class="row dt-rb">
+                    <div class="col-sm-6"></div>
+                    <div class="col-sm-6"></div>
+                  </div>
+                </div>
+              </div>
+              <br>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <div class="divider" style="margin-top: 0px"></div>
+  <div class="row">
+    <div class="col-md-12">
+      <h4 class="portlet-title">
+        <u>My URLs</u>
+        <span class="pull-right">
+          <button title="Add URL" (click)="OpenAddUrl(addUrlModal)" class="btn-sm myButton">+ Add URL</button>
+        </span>
+      </h4>
+      <div class="table-responsive">
+        <div id="table-1_wrapper" class="dataTables_wrapper form-inline" role="grid">
+          <div class="row dt-rt">
+            <div class="col-sm-6"></div>
+            <div class="col-sm-6"></div>
+          </div>
+          <table class="table table-striped table-bordered dataTable" id="table-1">
+            <thead>
+              <tr role="row">
+                <!-- <th class="text-left" role="columnheader" style="width: 37px;">
+      
+                </th> -->
+                <th class="sorting_asc" role="columnheader" style="width: 440px;">URL</th>
+                <th class="text-center linksTD2 sorting" role="columnheader" style="width: 110px;">Last Viewed</th>
+                <th class="text-center linksTD3 sorting" role="columnheader" style="width: 62px;">Views</th>
+                <th class="text-center linksTD3 sorting" role="columnheader" style="width: 62px;">Status</th>
+                <th class="text-center linksTD3 sorting" role="columnheader" style="width: 150px;"></th>
+              </tr>
+            </thead>
+      
+            <tbody id="linkList" role="alert">
+              <tr *ngFor="let item of urlList; let i = index" [class]="i % 2 == 0 ? 'odd' : 'even'">
+                  <!-- <td class="text-center valign-middle linksTD1">
+                      <input data-id="103932" type="checkbox" value="false">
+                    </td> -->
+                    <td class="valign-middle" style="min-width:400px">
+                      <div class="divURL margin-top">
+                        <a [href]="item.URLAddress" target="_blank">{{ item.URLAddress }}</a>
+                      </div>
+                    </td>
+                    <td class="text-center valign-middle linksTD2 ">
+                      <div class="margin-top">
+                          {{ item.CreatedOn |  date:'MM/dd/yyyy hh:mm a' }}
+                      </div>                
+                    </td>
+                    <td class="text-center valign-middle linksTD3 ">
+                        <div class="margin-top">
+                          {{ item.Visits }}
+                        </div>
+                      </td>
+                    <td class="text-center valign-middle linksTD3 ">
+                        <div class="margin-top">
+                          {{ item.Status ? 'Enable' : 'Disable' }}
+                        </div>
+                      </td>
+                    <td class="text-center valign-middle linksTD3 ">
+                      <button type="button" (click)="item.Status ? disableUrl(item.Id) : enableUrl(item.Id)" [title]="item.Status ? 'Disable' : 'Enable'" class="btn-sm myButton">{{ item.Status ? 'Disable' : 'Enable' }}</button>
+                      &nbsp;
+                      <button type="button" (click)="deleteUrl(deleteUrlModal, item.Id)" title="Delete" class="btn-sm redButton">Delete</button>
+                    </td>
+              </tr>
+              <tr *ngIf="!urlList || urlList.length == 0" class="odd">
+                <td colspan="5">
+                  No record
+                </td>                     
+              </tr>
+            </tbody>
+          </table>
+          <div class="row dt-rb">
+            <div class="col-sm-6"></div>
+            <div class="col-sm-6"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+<ng-template #durationModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Select Duration</h4>
+  </div>
+  <div class="modal-body">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <a class="btn btn-block btn-lg btn-traffic" (click)="c('1')">
+            <b class="texto_text">10</b> <br>
+            <span class="texto_grande">Seconds</span></a>
+          <br><br>
+        </div>
+        <div class="col-md-6">
+          <a class="btn btn-block btn-lg btn-traffic" (click)="c('2')">
+            <b class="texto_text">30</b> <br>
+            <span class="texto_grande">Seconds</span></a>
+          <br><br>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <a class="btn btn-block btn-lg btn-traffic" (click)="c('3')">
+            <b class="texto_text">60</b> <br>
+            <span class="texto_grande">Seconds</span></a>
+          <br><br>
+        </div>
+        <div class="col-md-6">
+          <a class="btn btn-block btn-lg btn-traffic" (click)="c('4')">
+            <b class="texto_text">120</b> <br>
+            <span class="texto_grande">Seconds</span></a>
+          <br><br>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #trafficModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Earn Traffic <span style="font-weight: normal;">(Please read it
+        carefully)</span></h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="portlet-body">
+            <p>
+              A Mini tab will open and display websites of our other members.
+            </p>
+            <p>
+              Turn off or down you Volume.
+            </p>
+            <p>
+              If you find any inappropriate content report it when you finished.
+            </p>
+          </div>
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <button type="button" title="Start my session" (click)="c('SaveClick')" class="myButton">Start Surfing</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+
+<ng-template #reportURL let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Report URL</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="portlet-body">
+            <p>
+              <textarea class="form-control" rows="5" placeholder="Place your message here." [(ngModel)]="reportmessage"
+                [ngModelOptions]="{standalone: true}"></textarea>
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" title="Report URL" [disabled]="!reportmessage" (click)="c('SaveClick')" class="myButton">Report</button>
+  </div>
+</ng-template>
+
+<ng-template #addUrlModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add URL</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="row">
+        <div class="col-md-12">
+            <p class="p-style"><b>Add any URL you want!</b> Blog articles, Facebook and Twitter pages, YouTube channels. <strong>Please Note:</strong> Users from the community can report any URL they feel is inappropriate, which could possibly result in a 24 hour suspension of your account.</p>
+            <input type="url" class="form-control url-input" placeholder="URL - Be sure to include http:// or https://" 
+            [(ngModel)]="urlAddress" [ngModelOptions]="{standalone: true}" required>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+      <button type="button" title="Add URL" (click)="c('SaveClick')" class="btn-sm myButton" [disabled]="loading || !urlAddress || ValidURL()">Save</button>
+  </div>
+</ng-template>
+
+<ng-template #deleteUrlModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Confirmation</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="row">
+        <div class="col-md-12">
+            <p class="p-style">
+              Are you sure, you want to delete this URL?
+            </p>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+      <button type="button" title="Delete" (click)="c('SaveClick')" class="btn-sm redButton">Delete</button>
+      <button type="button" title="Cancel" (click)="d('Cancel')" class="btn-sm myButton">Cancel</button>
+  </div>
+</ng-template>
